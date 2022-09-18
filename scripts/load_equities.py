@@ -21,6 +21,8 @@ bool_map = {'f': False, 't': True}
 for col in bool_cols:
     df[col] = df[col].map(bool_map)
 
+df.dropna(axis=1, inplace=True)
+
 for idx, date_entry in df.iterrows():
     params = date_entry.to_dict()
     new_equity = Equities(**params)
