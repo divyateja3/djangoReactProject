@@ -16,7 +16,7 @@ class Equities(models.Model):
     location = models.CharField(max_length=40)
     exchange_id = models.IntegerField()
     cik_no = models.IntegerField()
-    cusip = models.CharField()
+    cuisp = models.CharField(max_length=20)
     currency_id = models.IntegerField()
     data_source_id = models.IntegerField()
     ckr_log = models.BooleanField()
