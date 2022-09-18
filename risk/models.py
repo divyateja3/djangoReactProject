@@ -11,7 +11,7 @@ class Equities(models.Model):
     end_date = models.DateField()
     sector = models.CharField(max_length=30)
     industry = models.CharField(max_length=30)
-    employee_count = models.IntegerField()
+    employees_count = models.IntegerField()
     sic_no = models.IntegerField()
     location = models.CharField(max_length=40)
     exchange_id = models.IntegerField()
