@@ -4,7 +4,7 @@ import {BarChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceL
 import logo from './logo.svg';
 import './App.css';
 
-
+// Example data
 const data = [
   { name: "1", uv: 300, pv: 456 },
   { name: "2", uv: -145, pv: 230 },
