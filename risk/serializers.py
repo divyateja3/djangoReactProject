@@ -14,4 +14,4 @@ class ReturnsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Returns
-        fields = ('date', 'returns', 'equity_id')
+        fields = ('date', 'returns')
