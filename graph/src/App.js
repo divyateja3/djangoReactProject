@@ -1,17 +1,8 @@
-import React, { useState, useCallback } from "react";
-import {
-    BarChart,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ReferenceLine,
-    Brush,
-    Bar
-} from "recharts";
-
-import logo from './logo.svg';
+import React, {useCallback, useEffect, useState} from "react";
+import {Bar, BarChart, Brush, CartesianGrid, ReferenceLine, Tooltip, XAxis, YAxis} from "recharts";
+import {Container, Form} from "react-bootstrap";
 import './App.css';
+import {API_RETURNS_URL} from "./constants";
 
 // Example data
 const data = [
@@ -636,10 +627,24 @@ const data = [
 
 // Example Graph recharts library
 function App() {
+
     const [opacity, setOpacity] = useState({
         uv: 1,
         pv: 1
     });
+
+    const [data, setData] = useState([]);
+
+    const [equity, setEquity] = useState("10277")
+
+    useEffect (() => {
+        async function fetchReturns() {
+            console.log(API_RETURNS_URL + equity)
+            return await fetch(API_RETURNS_URL + equity)
+        }
+        console.log(data)
+        fetchReturns().then(res => setData(res.response));
+    },[equity])
 
     const handleMouseEnter = useCallback(
         (o) => {
@@ -659,25 +664,31 @@ function App() {
     );
 
     return (
-        <BarChart
-          width={1600}
-          height={900}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <ReferenceLine y={0} stroke="#000000" />
-          <Brush dataKey="date" height={40} stroke="#8884d8" />
-          <Bar dataKey="returns" fill="#8884d8" />
-        </BarChart>
+        <Container>
+            <BarChart
+              width={1600}
+              height={900}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <ReferenceLine y={0} stroke="#000000" />
+              <Brush dataKey="date" height={40} stroke="#8884d8" />
+              <Bar dataKey="returns" fill="#8884d8" />
+            </BarChart>
+            <Container className="align-center form-control col-lg">
+                <Form.Label>Equity_id</Form.Label>
+                <Form.Control type="text" onChange={(e) => setEquity(e.target.value)} />
+            </Container>
+        </Container>
     );
 }
 
