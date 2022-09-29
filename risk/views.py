@@ -15,16 +15,16 @@ def index(request):
 
 
 @api_view(['GET'])
-def equities_list(request):
+def equities_list(request, equity_id):
     if request.method == 'GET':
-        data = Equities.objects.all()
+        data = Equities.objects.filter(pk=equity_id)
         serializer = EquitiesSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
 
 @api_view(['GET'])
-def returns_list(request):
+def returns_list(request, equity_id):
     if request.method == 'GET':
-        data = Returns.objects.all()
+        data = Returns.objects.filter(equity_id=equity_id)
         serializer = ReturnsSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
