@@ -3,6 +3,7 @@ import {Bar, BarChart, Brush, CartesianGrid, ReferenceLine, Tooltip, XAxis, YAxi
 import {Container, Form} from "react-bootstrap";
 import './App.css';
 import {API_RETURNS_URL} from "./constants";
+import axios from "axios";
 
 // Example data
 const data = [
@@ -633,18 +634,20 @@ function App() {
         pv: 1
     });
 
-    const [data, setData] = useState([]);
+//    const [data, setData] = useState([]);
 
     const [equity, setEquity] = useState("10277")
 
-    useEffect (() => {
-        async function fetchReturns() {
-            console.log(API_RETURNS_URL + equity)
-            return await fetch(API_RETURNS_URL + equity)
-        }
-        console.log(data)
-        fetchReturns().then(res => setData(res.response));
-    },[equity])
+    useEffect(() => {
+        console.log(equity)
+    }, [equity])
+
+//    useEffect(() => {
+//        // GET request using axios inside useEffect React hook
+//        axios.get(API_RETURNS_URL + equity)
+//            .then(response => setData(response.data.total));
+//        console.log(data)
+//    }, [equity]);
 
     const handleMouseEnter = useCallback(
         (o) => {
