@@ -5,8 +5,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from risk.models import Equities
-from risk.serializers import EquitiesSerializer
+from risk.models import Equities, Returns
+from risk.serializers import EquitiesSerializer, ReturnsSerializer
 
 
 def index(request):
@@ -22,5 +22,9 @@ def equities_list(request):
         return Response(serializer.data)
 
 
+@api_view(['GET'])
 def returns_list(request):
-    return HttpResponse("returns_list")
+    if request.method == 'GET':
+        data = Returns.objects.all()
+        serializer = ReturnsSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
